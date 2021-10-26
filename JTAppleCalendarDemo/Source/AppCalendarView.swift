@@ -1,167 +1,43 @@
 //
 //  AppCalendarView.swift
-//  CalendarDemo
+//  ISCCamera
 //
-//  Created by Truc Pham on 18/08/2021.
+//  Created by TrucPham on 25/10/2021.
+//  Copyright © 2021 fun.sdk.ftel.vn.su4. All rights reserved.
 //
 
 import Foundation
 import UIKit
-import SnapKit
 import JTAppleCalendar
-struct AppCalendarConfig {
-    static let labelMonthTextColor : UIColor = .black
-    static let labelMonthFont : UIFont = .boldSystemFont(ofSize: 20)
-    static let dayOfWeekText : String = "T%d"
-    static let labelDayOfWeekTextColor : UIColor = .darkGray
-    static let labelDayOfWeekFont : UIFont = .boldSystemFont(ofSize: 13)
-    static let labelDayFont : UIFont = .systemFont(ofSize: 16)
-    
-    static let defaultSelectedColor : UIColor = .blue
-    static let defaultDeSelectedColor : UIColor = .white
-    static let textSelectedColor : UIColor = .white
-    static let textDeSelectedColor : UIColor = .black
-    static let textCurrentDayColor : UIColor = .blue
-    static let textAnotherMonthColor : UIColor = .gray
-    static let textDisableColor : UIColor = .gray
-    static let formatTextMonth : String = "Tháng %d %d"
-    
+import SnapKit
+
+enum CalendarDataType {
+    case success, fail, waitting, unknown
 }
 
-
-protocol AppCalendarViewDelegate : AnyObject {
-    /**
-     Chỉnh sửa layout date.
-     - Parameters:
-         - view: Date layout
-         - text: ngày (String)
-         - indexPath: Vị trí date
-         - date: ngày (Date)
-         - isSelected: Date có đang được chọn không
-     */
-    func cellConfig(view: AppCalendarCell?, text: String, isSelected : Bool, indexPath: IndexPath, date: Date)
-    /**
-     Dữ liệu trong ngày.
-     - Parameters:
-         - view: Date layout
-         - text: ngày (String)
-         - indexPath: Vị trí date
-         - date: ngày (Date)
-         - isSelected: Date có đang được chọn không
-     - Returns: DS Dữ liệu trong ngày.
-     */
-    func cellDataType(view: AppCalendarCell?, text: String, isSelected : Bool, indexPath: IndexPath, date: Date) -> [CalendarDataType]
-    /**
-     Loại ngày.
-     - Parameters:
-         - view: Date layout
-         - text: ngày (String)
-         - indexPath: Vị trí date
-         - date: ngày (Date)
-         - isSelected: Date có đang được chọn không
-     - Returns: Loại ngày.
-     */
-    func cellDayType(view: AppCalendarCell?, text: String, isSelected : Bool, indexPath: IndexPath, date: Date) -> CalendarDayViewType
-    /**
-     Màu chữ theo loại ngày.
-     - Parameters:
-         - view: Date layout
-         - text: ngày (String)
-         - indexPath: Vị trí date
-         - date: ngày (Date)
-         - isSelected: Date có đang được chọn không
-     - Returns: Màu chữ theo loại ngày.
-     */
-    func cellTextColorDayType(view: AppCalendarCell?, text: String, isSelected : Bool, indexPath: IndexPath, date: Date) -> [CalendarDayViewType : UIColor]
-    /**
-     Màu background theo loại ngày.
-     - Parameters:
-         - view: Date layout
-         - text: ngày (String)
-         - indexPath: Vị trí date
-         - date: ngày (Date)
-         - isSelected: Date có đang được chọn không
-     - Returns: Màu background theo loại ngày.
-     */
-    func cellSelectedBackgroundColorDayType(view: AppCalendarCell?, text: String, isSelected : Bool, indexPath: IndexPath, date: Date) -> [CalendarDayViewType : UIColor]
-    /**
-     Màu chữ theo ngày trong tuần.
-     - Parameters:
-         - view: Date layout
-         - text: ngày (String)
-         - indexPath: Vị trí date
-         - date: ngày (Date)
-         - isSelected: Date có đang được chọn không
-     - Returns: Màu chữ theo ngày trong tuần.
-     */
-    func cellColorDayOfWeek(view: AppCalendarCell?, text: String, isSelected : Bool, indexPath: IndexPath, date: Date) -> [Date.Day : UIColor]
-    /**
-     Màu background theo ngày trong tuần.
-     - Parameters:
-         - view: Date layout
-         - text: ngày (String)
-         - indexPath: Vị trí date
-         - date: ngày (Date)
-         - isSelected: Date có đang được chọn không
-     - Returns: Màu background theo ngày trong tuần.
-     */
-    func cellSelectedBackgroundColorDayOfWeek(view: AppCalendarCell?, text: String, isSelected : Bool, indexPath: IndexPath, date: Date) -> [Date.Day : UIColor]
-    
-    /**
-     Màu dữ liệu trong ngày.
-     - Parameters:
-         - view: Date layout
-         - text: ngày (String)
-         - indexPath: Vị trí date
-         - date: ngày (Date)
-         - isSelected: Date có đang được chọn không
-     - Returns: Màu dữ liệu trong ngày.
-     */
-    func cellColorDataType(view: AppCalendarCell?, text: String, isSelected : Bool, indexPath: IndexPath, date: Date) -> [CalendarDataType : UIColor]
-    
+enum CalendarDayViewType {
+    case off, holiday, unknown
 }
-
-extension AppCalendarViewDelegate{
-    func cellConfig(view: AppCalendarCell?, text: String, isSelected : Bool, indexPath: IndexPath, date: Date) {
-        
-    }
-    func cellDataType(view: AppCalendarCell?, text: String, isSelected : Bool, indexPath: IndexPath, date: Date) -> [CalendarDataType] {
-        return []
-    }
-    
-    func cellDayType(view: AppCalendarCell?, text: String, isSelected : Bool, indexPath: IndexPath, date: Date) -> CalendarDayViewType {
-        return .unknown
-    }
-    
-    func appCalendarView(_ view : AppCalendarView, dateSelected date: Date) {
-        
-    }
-    
-    func cellTextColorDayType(view: AppCalendarCell?, text: String, isSelected : Bool, indexPath: IndexPath, date: Date) -> [CalendarDayViewType : UIColor] {
-        return [:]
-    }
-    
-    func cellSelectedBackgroundColorDayType(view: AppCalendarCell?, text: String, isSelected : Bool, indexPath: IndexPath, date: Date) -> [CalendarDayViewType : UIColor] {
-        return [:]
-    }
-    
-    func cellColorDayOfWeek(view: AppCalendarCell?, text: String, isSelected : Bool, indexPath: IndexPath, date: Date) -> [Date.Day : UIColor] {
-        return [:]
-    }
-    
-    func cellSelectedBackgroundColorDayOfWeek(view: AppCalendarCell?, text: String, isSelected : Bool, indexPath: IndexPath, date: Date) -> [Date.Day : UIColor] {
-        return [:]
-    }
+enum CalendarType : Int {
+    case single = 1
+    case multi = 6
 }
-
 class AppCalendarView: UIView {
     enum DisableDate {
         case prevDate, nextDate , none
     }
     
     var disableDate : DisableDate = .nextDate
-    var beforeCurrentMonth : Int = 2
-    var afterCurrentMonth : Int = 0
+    var beforeCurrentMonth : Int = 2 {
+        didSet {
+            reloadData()
+        }
+    }
+    var afterCurrentMonth : Int = 0 {
+        didSet {
+            reloadData()
+        }
+    }
     var calendarType : CalendarType {
         didSet {
             reloadData()
@@ -175,15 +51,14 @@ class AppCalendarView: UIView {
     }()
     fileprivate lazy var buttonNext : UIButton = {
         let v = UIButton(frame: .init(origin: .zero, size: .init(width: 24, height: 24)))
-        v.setTitle("Next", for: .normal)
-        v.setTitleColor(.gray, for: .normal)
+        v.transform = .init(rotationAngle: CGFloat.pi)
+        v.setImage(.init(named: "ic_arrow_left_black"), for: .normal)
         v.addTarget(self, action: #selector(self.buttonNextHandler(_:)), for: .touchUpInside)
         return v
     }()
     fileprivate lazy var buttonPrev : UIButton = {
         let v = UIButton(frame: .init(origin: .zero, size: .init(width: 24, height: 24)))
-        v.setTitle("Prev", for: .normal)
-        v.setTitleColor(.gray, for: .normal)
+        v.setImage(.init(named: "ic_arrow_left_black"), for: .normal)
         v.addTarget(self, action: #selector(self.buttonPrevHandler(_:)), for: .touchUpInside)
         return v
     }()
@@ -298,8 +173,8 @@ class AppCalendarView: UIView {
         stackDaysOfWeek.distribution = .fillEqually
         stackDaysOfWeek.axis = .horizontal
         
-        for i in 2...8{
-            let thuLabel = createDayOfWeekLabel(text: String(format: AppCalendarConfig.dayOfWeekText, i))
+        for i in 0...6{
+            let thuLabel = createDayOfWeekLabel(text: AppCalendarConfig.dayOfWeekText(i))
             stackDaysOfWeek.addArrangedSubview(thuLabel)
         }
         viewDaysOfWeek.addSubview(stackDaysOfWeek)
@@ -389,11 +264,10 @@ class AppCalendarView: UIView {
                     /// background
                     myCustomCell.selectedView.layer.cornerRadius =  myCustomCell.selectedViewSize.height / 2
                     var selectedcolor : UIColor = AppCalendarConfig.defaultSelectedColor
-                    
-                    if let color = delegate?.cellSelectedBackgroundColorDayOfWeek(view: cell, text: cellState.text, isSelected : cellState.isSelected, indexPath: indexPath, date: date)[date.dayOfWeek]{
+                    if let dayType = delegate?.cellDayType(view: cell, text: cellState.text, isSelected : cellState.isSelected, indexPath: indexPath, date: date), let color = delegate?.cellSelectedBackgroundColorDayType(view: cell,  text: cellState.text, isSelected : cellState.isSelected, indexPath: indexPath, date: date)[dayType] {
                         selectedcolor = color
                     }
-                    else if let dayType = delegate?.cellDayType(view: cell, text: cellState.text, isSelected : cellState.isSelected, indexPath: indexPath, date: date), let color = delegate?.cellSelectedBackgroundColorDayType(view: cell,  text: cellState.text, isSelected : cellState.isSelected, indexPath: indexPath, date: date)[dayType] {
+                    else if let color = delegate?.cellSelectedBackgroundColorDayOfWeek(view: cell, text: cellState.text, isSelected : cellState.isSelected, indexPath: indexPath, date: date)[date.dayOfWeek]{
                         selectedcolor = color
                     }
                     myCustomCell.selectedView.backgroundColor = selectedcolor
@@ -401,10 +275,10 @@ class AppCalendarView: UIView {
                 } else {
                     /// text color
                     var selectedcolor : UIColor = AppCalendarConfig.textDeSelectedColor
-                    if let color = delegate?.cellColorDayOfWeek(view: cell,  text: cellState.text, isSelected : cellState.isSelected, indexPath: indexPath, date: date)[date.dayOfWeek]{
+                    if let dayType = delegate?.cellDayType(view: cell,  text: cellState.text, isSelected : cellState.isSelected, indexPath: indexPath, date: date), let color = delegate?.cellTextColorDayType(view: cell,  text: cellState.text, isSelected : cellState.isSelected, indexPath: indexPath, date: date)[dayType] {
                         selectedcolor = color
                     }
-                    else if let dayType = delegate?.cellDayType(view: cell,  text: cellState.text, isSelected : cellState.isSelected, indexPath: indexPath, date: date), let color = delegate?.cellTextColorDayType(view: cell,  text: cellState.text, isSelected : cellState.isSelected, indexPath: indexPath, date: date)[dayType] {
+                    else if let color = delegate?.cellColorDayOfWeek(view: cell,  text: cellState.text, isSelected : cellState.isSelected, indexPath: indexPath, date: date)[date.dayOfWeek]{
                         selectedcolor = color
                     }
                     myCustomCell.dayLabel.textColor = selectedcolor
@@ -438,7 +312,7 @@ class AppCalendarView: UIView {
     
     
     private func setupViewsOfCalendar(from date: Date) {
-        labelMonth.text = String(format: AppCalendarConfig.formatTextMonth, date.month, date.year)
+        labelMonth.text = String(format: AppCalendarConfig.formatTextMonth(date.month - 1), date.year)
         let month = self.calendarView.numberOfSections(in: self.calendarView)
         if let currentSection = self.calendarView.currentSection() {
             buttonNext.isEnabled = currentSection < month - 1
@@ -518,217 +392,3 @@ extension AppCalendarView: JTACMonthViewDelegate, JTACMonthViewDataSource  {
     }
 }
 
-enum CalendarType : Int {
-    case single = 1
-    case multi = 6
-}
-
-
-class AppCalendarCell: JTACDayCell {
-    let selectedViewSize : CGSize = .init(width: 32, height: 32)
-    var widthConstraint : NSLayoutConstraint?
-    var dataTypeColor : [CalendarDataType : UIColor] = [:]
-    var calendarDataType : [CalendarDataType] = []
-    {
-        didSet{
-            setupViewType()
-        }
-    }
-    lazy var dayLabel: UILabel = {
-        let v = UILabel()
-        v.textColor = .lightGray
-        v.font = AppCalendarConfig.labelDayFont
-        v.translatesAutoresizingMaskIntoConstraints = false
-        return v
-    }()
-    lazy var selectedView: UIView = {
-        let v = UIView()
-        v.translatesAutoresizingMaskIntoConstraints = false
-        v.backgroundColor = .blue
-        return v
-    }()
-    lazy var layerCustomView: UICollectionView = {
-        let layout = UICollectionViewFlowLayout()
-        layout.itemSize = CGSize(width: 4, height: 4)
-        layout.minimumLineSpacing = 1
-        layout.minimumInteritemSpacing = 1
-        let v = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        v.dataSource = self
-        v.register(AppCalendarDayTypeCell.self, forCellWithReuseIdentifier: "AppCalendarDayTypeCell")
-        v.backgroundColor = .clear
-        v.translatesAutoresizingMaskIntoConstraints = false
-        return v
-    }()
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        prepareUI()
-        
-    }
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        prepareUI()
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    private func prepareUI()
-    {
-        
-        self.addSubview(selectedView)
-        self.addSubview(dayLabel)
-        self.addSubview(layerCustomView)
-        widthConstraint = layerCustomView.widthAnchor.constraint(equalToConstant: min(CGFloat(5*self.calendarDataType.count),  5*3))
-        NSLayoutConstraint.activate([
-            selectedView.heightAnchor.constraint(equalToConstant: selectedViewSize.height),
-            selectedView.widthAnchor.constraint(equalToConstant: selectedViewSize.width),
-            selectedView.centerYAnchor.constraint(equalTo: self.centerYAnchor),
-            selectedView.centerXAnchor.constraint(equalTo: self.centerXAnchor),
-            
-            dayLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor),
-            dayLabel.centerXAnchor.constraint(equalTo: self.centerXAnchor),
-            
-            layerCustomView.topAnchor.constraint(equalTo: self.dayLabel.bottomAnchor, constant: -1),
-            layerCustomView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -3),
-            layerCustomView.centerXAnchor.constraint(equalTo: self.centerXAnchor),
-            widthConstraint!
-        ])
-    }
-    
-    private func setupViewType()
-    {
-        widthConstraint?.constant = min(CGFloat(5*self.calendarDataType.count), 5*3)
-        self.layerCustomView.reloadData()
-        
-    }
-    
-    
-}
-
-extension AppCalendarCell : UICollectionViewDataSource{
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return calendarDataType.count
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "AppCalendarDayTypeCell", for: indexPath) as? AppCalendarDayTypeCell else {
-            return UICollectionViewCell()
-        }
-        cell.view.backgroundColor = dataTypeColor[self.calendarDataType[indexPath.row]]
-        return cell
-    }
-    
-    
-}
-
-
-
-enum CalendarDataType {
-    case success, fail, waitting, unknown
-}
-
-enum CalendarDayViewType {
-    case off, holiday, unknown
-}
-
-class AppCalendarDayTypeCell : UICollectionViewCell {
-    lazy var view : UIView = {
-        let v = UIView()
-        v.layer.cornerRadius = 2
-        v.translatesAutoresizingMaskIntoConstraints = false
-        self.addSubview(v)
-        NSLayoutConstraint.activate([
-            v.centerXAnchor.constraint(equalTo: self.centerXAnchor),
-            v.centerYAnchor.constraint(equalTo: self.centerYAnchor),
-            v.heightAnchor.constraint(equalToConstant: 3),
-            v.widthAnchor.constraint(equalToConstant: 3)
-        ])
-        return v
-    }()
-}
-extension Date {
-    var day : Int
-    {
-        let calendar = Calendar.current
-        return calendar.component(.day, from: self)
-    }
-    var month : Int
-    {
-        let calendar = Calendar.current
-        return calendar.component(.month, from: self)
-    }
-    var year : Int
-    {
-        let calendar = Calendar.current
-        return calendar.component(.year, from: self)
-    }
-    func noon(using calendar: Calendar = .current) -> Date {
-        calendar.date(bySettingHour: 12, minute: 0, second: 0, of: self)!
-    }
-    func day(using calendar: Calendar = .current) -> Int {
-        calendar.component(.day, from: self)
-    }
-    func adding(_ component: Calendar.Component, value: Int, using calendar: Calendar = .current) -> Date {
-        calendar.date(byAdding: component, value: value, to: self)!
-    }
-    func monthSymbol(using calendar: Calendar = .current) -> String {
-        calendar.monthSymbols[calendar.component(.month, from: self)-1]
-    }
-    var removeTimeStamp : Date {
-        guard let date = Calendar.current.date(from: Calendar.current.dateComponents([.year, .month, .day], from: self)) else {
-            fatalError("Failed to strip time from Date object")
-        }
-        return date
-    }
-    var startOfMonth: Date {
-        
-        let calendar = Calendar(identifier: .gregorian)
-        let components = calendar.dateComponents([.year, .month], from: self)
-        
-        return  calendar.date(from: components)!
-    }
-    var endOfMonth: Date {
-        var components = DateComponents()
-        components.month = 1
-        components.second = -1
-        return Calendar(identifier: .gregorian).date(byAdding: components, to: startOfMonth)!
-    }
-    var startOfWeek: Date? {
-        let gregorian = Calendar.current
-        guard let sunday = gregorian.date(from: gregorian.dateComponents([.yearForWeekOfYear, .weekOfYear], from: self)) else { return nil }
-        return gregorian.date(byAdding: .day, value: 1, to: sunday)
-    }
-    
-    var endOfWeek: Date? {
-        let gregorian = Calendar.current
-        guard let sunday = gregorian.date(from: gregorian.dateComponents([.yearForWeekOfYear, .weekOfYear], from: self)) else { return nil }
-        return gregorian.date(byAdding: .day, value: 7, to: sunday)
-    }
-    static func from(year: Int, month: Int, day: Int) -> Date? {
-        let calendar = Calendar(identifier: .gregorian)
-        var dateComponents = DateComponents()
-        dateComponents.year = year
-        dateComponents.month = month
-        dateComponents.day = day
-        
-        return calendar.date(from: dateComponents)
-    }
-    var dayOfWeek : Day {
-        let calendar = Calendar.current
-        let today = calendar.startOfDay(for: self)
-        return Day(rawValue: calendar.component(.weekday, from: today)) ?? .none
-    }
-    enum Day : Int {
-        case none = -1
-        case sunday = 1, monday = 2,tuesday = 3, wednesday = 4, thursday = 5, friday = 6, saturday = 7
-    }
-    
-}
-extension String {
-    var firstCapitalized: String {
-        var string = self
-        string.replaceSubrange(string.startIndex...string.startIndex, with: String(string[string.startIndex]).capitalized)
-        return string
-    }
-}
